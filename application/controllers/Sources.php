@@ -25,5 +25,10 @@ class Sources extends MY_Controller {
         $type = $this->input->post('type');
         echo $this->Sources_model->addSource($domain, $type);
     }
+    
+    public function resort(){
+        $data = $this->input->post('data');
+        echo $this->Sources_model->resort($data);
+    }
 }
 ?>

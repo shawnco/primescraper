@@ -14,9 +14,9 @@
     }else{
         foreach($sources as $s){
             echo "<li>";
-            echo "<span id='list_name'>" . $s['domain'] . "</span>";
-            echo "<span id='list_type'>" . $s['type'] . "</span>";
-            echo "<span id='list_preference'>" . $s['preference'] . "</span>";
+            echo "<span class='list_name'>" . $s['domain'] . "</span>";
+            echo "<span class='list_type'>" . $s['type'] . "</span>";
+            echo "<span class='list_preference'>" . $s['preference'] . "</span>";
             echo "</li>";
         }
     }

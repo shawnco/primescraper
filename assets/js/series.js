@@ -14,7 +14,7 @@ function selectSeries(i){
         dataType: 'text'
     });
     request.done(function(data){
-        $('#message').html(data);
+        message(data);
     });
 }
 $(document).ready(function(){

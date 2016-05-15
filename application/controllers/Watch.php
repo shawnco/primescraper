@@ -12,11 +12,16 @@ class Watch extends MY_Controller {
         $this->load->model('Watch_model');
         $this->data['title'] = 'Watch';
         $this->data['url'] = $this->Watch_model->getURL();
+        $this->addScript('watch.js');
     }
     
     public function index($id = 1){
         $this->data['id'] = $id;
         $this->display('watch/index', $this->data);
+    }
+    
+    public function getLinks(){
+        echo $this->Watch_model->getLinks();
     }
 }
 ?>

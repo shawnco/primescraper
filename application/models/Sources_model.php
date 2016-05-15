@@ -53,5 +53,17 @@ class Sources_model extends CI_Model {
         }
         return json_encode($output);
     }
+    
+    public function resort($data){
+        foreach($data as $k => $v){
+            $this->db->where('domain', $v);
+            $this->db->update('sources', array('preference' => $k+1));
+        }
+        
+        // Now their their new preferences to make sure all is right.
+        $this->db->select('preference');
+        $this->db->order_by('preference');
+        return json_encode($this->db->get('sources')->result_array());
+    }
 }
 ?>

@@ -6,7 +6,6 @@
  * @author Shawn Contant <shawnc366@gmail.com>
  */
 
-include('assets/simplehtmldom/simple_html_dom.php');
 class Series_model extends CI_Model {
     public function __construct(){
         parent::__construct();
