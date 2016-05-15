@@ -1,0 +1,52 @@
+/**
+    General style for the entire site
+    @author Shawn Contant <shawnc366@gmail.com>
+**/
+
+body{
+    background-color: #add8e6;
+}
+#header {
+    background-color: #4F03FF;
+    color: white;
+    margin-bottom: 0px;
+}
+
+h1 {
+    display: inline;
+}
+
+#nav li {
+    list-style: none;
+    display: inline;
+}
+
+#nav li a {
+    color: white;
+}
+#container {
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    background-color: white;
+    padding: 10px 10px 10px 10px;
+}
+
+#results {
+    display: none;
+    border: 1px solid black;
+    margin-top: 30px;
+}
+
+#results div {
+    width: 100%;
+}
+
+.select_button {
+    float: right;
+}
+
+#message {
+    color: #00ff00;
+}
