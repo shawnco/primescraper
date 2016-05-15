@@ -50,3 +50,27 @@ h1 {
 #message {
     color: #00ff00;
 }
+
+#source_list li {
+    width: 300px;
+    border: 1px solid black;
+}
+
+#source_list li span {
+    margin-right: 10px;
+}
+
+#list_name{
+    display: inline-block;
+    width: 100px;
+}
+
+#list_type{
+    display: inline-block;    
+    width: 100px;
+}
+
+#list_preference{
+    display: inline-block;    
+    width: 50px;
+}

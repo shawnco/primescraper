@@ -13,7 +13,11 @@
         echo 'There are currently no video sources.';
     }else{
         foreach($sources as $s){
-            echo "<li>" . $s['domain'] . "</li>";
+            echo "<li>";
+            echo "<span id='list_name'>" . $s['domain'] . "</span>";
+            echo "<span id='list_type'>" . $s['type'] . "</span>";
+            echo "<span id='list_preference'>" . $s['preference'] . "</span>";
+            echo "</li>";
         }
     }
     ?>
