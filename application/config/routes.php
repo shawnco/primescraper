@@ -53,6 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Watch';
 $route['watch'] = 'Watch';
 $route['watch/getLinks'] = 'Watch/getLinks';
+$route['watch/markWatched'] = 'Watch/markWatched';
 $route['series'] = 'Series';
 $route['series/search'] = 'Series/search';
 $route['series/update'] = 'Series/update';

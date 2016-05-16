@@ -38,8 +38,19 @@ $(document).ready(function(){
         if(i < len - 1){
             i++;
         }else{
+            message('Last of the links. Starting from the first.');
             i = 0;
         }
         loadVideo(i);
+    });
+    
+    $('.fa-check').click(function(){
+        var request = $.post({
+            url: 'watch/markWatched',
+            dataType: 'text'
+        });
+        request.done(function(data){
+            message(data);
+        })
     })
 });

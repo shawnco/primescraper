@@ -23,5 +23,9 @@ class Watch extends MY_Controller {
     public function getLinks(){
         echo $this->Watch_model->getLinks();
     }
+    
+    public function markWatched(){
+        echo $this->Watch_model->markWatched();
+    }
 }
 ?>

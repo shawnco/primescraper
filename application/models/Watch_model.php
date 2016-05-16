@@ -54,6 +54,50 @@ class Watch_model extends CI_Model {
         return $id;
         
     }
+    
+    public function markWatched(){
+        // Get current episode
+        $this->db->select('season, episode');
+        $result = $this->db->get('series')->row_array();
+        
+        // Get the season and episode of the very last episode.
+        $this->db->select_max('seasons');
+        $season = $this->db->get('series_data')->row()->seasons;
+        $this->db->select('episodes');
+        $this->db->where('seasons', $season);
+        $episode = $this->db->get('series_data')->row()->episodes;
+        
+        if($season == $result['season'] && $episode == $result['episode']){
+            return 'You have completed this series.';
+        }else{
+            // Find how many episodes this season is. We may need to advanced one season.
+            $this->db->select('episodes');
+            $this->db->where('seasons', $result['season']);
+            $episodesThisSeason = $this->db->get('series_data')->row_array()['episodes'];
+            
+            // Advanced to the next season
+            if($result['episode'] == $episodesThisSeason){
+                $update = array(
+                    'season' => $result['season'] + 1,
+                    'episode' => 1
+                );
+                $this->db->update('series', $update);
+            }else{
+            // Advance to the next episode
+                $update = array(
+                    'episode' => $result['episode'] + 1
+                );
+                $this->db->update('series', $update);
+            }
+            if($this->db->affected_rows() < 1){
+                return 'Unable to mark as watched.';
+            }else{
+                return 'Marked as watched! Reload to watch the next episode.';
+            }
+        }
+        
+        
+    }
 }
 
 
