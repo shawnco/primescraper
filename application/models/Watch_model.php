@@ -48,7 +48,7 @@ class Watch_model extends CI_Model {
         return json_encode($links);
     }   
     
-    public function parseGorillavid($redirect){
+    private function parseGorillavid($redirect){
         $contents = file_get_html($redirect);
         $id = $contents->find('[name=id]')->attr['value'];
         return $id;
@@ -97,6 +97,68 @@ class Watch_model extends CI_Model {
         }
         
         
+    }
+    
+    public function getLocation(){
+        $this->db->select('season, episode');
+        return json_encode($this->db->get('series')->row_array());
+    }
+    
+    public function stepVideo($direction){
+        // Get current series location
+        $this->db->select('season, episode');
+        $current = $this->db->get('series')->row_array();        
+        
+        // Get number of episodes in current season.
+        $this->db->select('episodes');
+        $this->db->where('seasons', $current['season']);
+        $episodesThisSeason = $this->db->get('series_data')->row_array()['episodes'];        
+        
+        if($direction === 'up'){
+            // Check for upper bound
+            $this->db->select_max('seasons');
+            $maxSeason = $this->db->get('series_data')->row_array()['seasons'];
+            $this->db->select('episodes');
+            $this->db->where('seasons', $maxSeason);
+            $maxEpisode = $this->db->get('series_data')->row_array()['episodes'];
+            
+            // Are we at upper bound? If so, reject, otherwise, approve.
+            if($current['season'] == $maxSeason && $current['episode'] == $maxEpisode){
+                return FALSE;
+            }else{
+                if($current['episode'] == $episodesThisSeason){
+                    $data = array(
+                        'season' => $current['season'] + 1,
+                        'episode' => 1
+                    );
+                }else{
+                    $data = array(
+                        'episode' => $current['episode'] + 1
+                    );
+                }    
+            }
+        }else{
+            // Check for lower bound
+            if($current['season'] == 1 && $current['episode'] == 1){
+                return FALSE;
+            }else{
+                if($current['episode'] == 1){
+                    $this->db->select('episodes');
+                    $this->db->where('seasons', $current['season'] - 1);
+                    $lastSeasonEpisodes = $this->db->get('series_data')->row_array()['episodes'];
+                    $data = array(
+                        'season' => $current['season'] - 1,
+                        'episode' => $lastSeasonEpisodes
+                    );
+                }else{
+                    $data = array(
+                        'episode' => $current['episode'] - 1
+                    );
+                }
+            }
+        }
+        $this->db->update('series', $data);
+        return $this->db->affected_rows() > 0;
     }
 }
 

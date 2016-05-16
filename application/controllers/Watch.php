@@ -24,8 +24,35 @@ class Watch extends MY_Controller {
         echo $this->Watch_model->getLinks();
     }
     
+    public function getLocation(){
+        echo $this->Watch_model->getLocation();
+    }
+    
     public function markWatched(){
-        echo $this->Watch_model->markWatched();
+        //echo $this->Watch_model->markWatched();
+        if($this->Watch_model->stepVideo('up')){
+            echo 'Marked as watched! Reload to watch next episode.';
+        }else{
+            echo 'Unable to move to next episode.';
+        }
+    }
+    
+    public function nextEpisode(){
+        //echo $this->Watch_model->nextEpisode();
+        if($this->Watch_model->stepVideo('up')){
+            echo 'Moving to next episode.';
+        }else{
+            echo 'Unable to move to next episode.';
+        }
+    }
+    
+    public function previousEpisode(){
+        //echo $this->Watch_model->previousEpisode();
+        if($this->Watch_model->stepVideo('down')){
+            echo 'Moving to previous episode.';
+        }else{
+            echo 'Unable to move to previous episode.';
+        }
     }
 }
 ?>

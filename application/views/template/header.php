@@ -27,4 +27,7 @@
     </div>
     <div class='container'>
         <div class='content'>
-        <div id='message'></div>
+            <div class='row'>
+                <div id='message'></div>
+                <div id='location'></div>
+            </div>

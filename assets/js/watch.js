@@ -13,13 +13,23 @@ function loadVideo(i){
     $('iframe').prop('src', links[i].url);
 }
 
+function getLocation(){
+    var request = $.post({
+        url: 'watch/getLocation',
+        dataType: 'text'
+    });
+    request.done(function(data){
+        var result = $.parseJSON(data);
+        $('#location').html(result['season'] + '-' + result['episode']);
+    });
+}
+
 function getLinks(){
     var request = $.post({
         url: 'watch/getLinks',
         dataType: 'text'
     });
     request.done(function(data){
-        console.log(data);
         links = $.parseJSON(data);
         //console.log(links);
         if(links.length < 1){
@@ -32,6 +42,30 @@ function getLinks(){
 }
 $(document).ready(function(){
     getLinks();
+    getLocation();
+    $('.fa-chevron-left').click(function(){
+        var request = $.post({
+            url: 'watch/previousEpisode',
+            dataType: 'text'
+        });
+        request.done(function(data){
+            message(data);
+            getLinks();
+            getLocation();
+        })
+    });
+    
+    $('.fa-chevron-right').click(function(){
+        var request = $.post({
+            url: 'watch/nextEpisode',
+            dataType: 'text'
+        });
+        request.done(function(data){
+            message(data);
+            getLinks();
+            getLocation();
+        });
+    });
     
     $('.fa-refresh').click(function(){
         var len = links.length;
@@ -51,6 +85,9 @@ $(document).ready(function(){
         });
         request.done(function(data){
             message(data);
+            if(data.indexOf('Reload') > 0){
+                $(this).toggleClass('check-circle-o');
+            }
         })
     })
 });
