@@ -14,6 +14,7 @@
             echo "<link rel='stylesheet' type='text/css' href='" . $c . "' />";
         }
     ?>
+    <link rel='stylesheet' type='text/css' href='<?php echo base_url(); ?>assets/js/bootstrap/css/bootstrap.min.css' />
 </head>
 <body>
     <div id='header'>
@@ -25,4 +26,5 @@
         </ul>
     </div>
     <div class='container'>
+        <div class='content'>
         <div id='message'></div>

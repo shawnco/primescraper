@@ -2,9 +2,8 @@
     General style for the entire site
     @author Shawn Contant <shawnc366@gmail.com>
 **/
-
-body{
-    background-color: #add8e6;
+body {
+    background-color: #add8e6 !important;
 }
 #header {
     background-color: #4F03FF;
@@ -24,11 +23,10 @@ h1 {
 #nav li a {
     color: white;
 }
-#container {
+.content {
     margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
     background-color: white;
     padding: 10px 10px 10px 10px;
 }
@@ -80,4 +78,6 @@ h1 {
 iframe {
     width: 100%;
     height: 500px;
+    padding: 0;
+    margin: 0;
 }
