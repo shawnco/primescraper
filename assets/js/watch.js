@@ -5,6 +5,7 @@
  */
 
 var links = new Array();
+var i = 0;
 
 function loadVideo(i){
     console.log('loading video');
@@ -25,10 +26,20 @@ function getLinks(){
             message('There are no links for this video.');
         }else{
             message('Links loaded.');
-            loadVideo(0);
+            loadVideo(i);
         }
     });
 }
 $(document).ready(function(){
     getLinks();
+    
+    $('.fa-refresh').click(function(){
+        var len = links.length;
+        if(i < len - 1){
+            i++;
+        }else{
+            i = 0;
+        }
+        loadVideo(i);
+    })
 });

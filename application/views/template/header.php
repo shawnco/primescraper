@@ -24,5 +24,5 @@
             <li><a href='sources'>Sources</a></li>
         </ul>
     </div>
-    <div id='container'>
+    <div class='container'>
         <div id='message'></div>
