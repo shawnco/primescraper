@@ -23,7 +23,7 @@ class Watch_model extends CI_Model {
         $url = 'http://www.primewire.ag' . str_replace('watch', 'tv', $result['url']) . '/season-' . $result['season'] . '-episode-' . $result['episode'];
         $contents = file_get_html($url);
         $hosts = $contents->find('.version_host');
-        $videoLinks = $contents->find('.movie_version_link a');
+        $videoLinks = $contents->find('.movie_version_link');
         
         // Get the sources and get every link I can
         $this->db->order_by('preference');
@@ -33,12 +33,12 @@ class Watch_model extends CI_Model {
         foreach($sources as $source){
             foreach($hosts as $key => $host){
                 if(strpos($host->innertext, $source['domain'])){
-                    $links[] = array('domain' => $source['domain'], 'url' => 'http://www.primewire.ag' . $videoLinks[$key]->href);
+                    $links[] = array('domain' => $source['domain'], 'url' => 'http://primewire.ag' . $videoLinks[$key]->find('a')[0]->attr['href']);
 //                    $redirect = 'http://www.primewire.ag' . $videoLinks[$key]->href;
                     
-                    // Depending on the site type we go to one of the parsers
+                    //Depending on the site type we go to one of the parsers
 //                    if($source['type'] === 'gorillavid'){
-//                        $links[]['url'] = $this->parseGorillavid($redirect);
+//                        $links[]['url'] = $source['domain'] . $this->parseGorillavid($redirect);
 //                    }else{
 //                        $links[]['url'] = $this->parseNosvideo($redirect);
 //                    }
@@ -49,6 +49,9 @@ class Watch_model extends CI_Model {
     }   
     
     public function parseGorillavid($redirect){
+        $contents = file_get_html($redirect);
+        $id = $contents->find('[name=id]')->attr['value'];
+        return $id;
         
     }
 }

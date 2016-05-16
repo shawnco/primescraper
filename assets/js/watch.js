@@ -7,6 +7,8 @@
 var links = new Array();
 
 function loadVideo(i){
+    console.log('loading video');
+    console.log(links[i].url);
     $('iframe').prop('src', links[i].url);
 }
 
@@ -16,8 +18,9 @@ function getLinks(){
         dataType: 'text'
     });
     request.done(function(data){
+        console.log(data);
         links = $.parseJSON(data);
-        console.log(links);
+        //console.log(links);
         if(links.length < 1){
             message('There are no links for this video.');
         }else{
