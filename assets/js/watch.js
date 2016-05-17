@@ -43,7 +43,7 @@ function getLinks(){
 $(document).ready(function(){
     getLinks();
     getLocation();
-    $('.fa-chevron-left').click(function(){
+    $('.fa-chevron-left').parent().click(function(){
         var request = $.post({
             url: 'watch/previousEpisode',
             dataType: 'text'
@@ -55,7 +55,7 @@ $(document).ready(function(){
         })
     });
     
-    $('.fa-chevron-right').click(function(){
+    $('.fa-chevron-right').parent().click(function(){
         var request = $.post({
             url: 'watch/nextEpisode',
             dataType: 'text'
@@ -67,7 +67,7 @@ $(document).ready(function(){
         });
     });
     
-    $('.fa-refresh').click(function(){
+    $('.fa-refresh').parent().click(function(){
         var len = links.length;
         if(i < len - 1){
             i++;
@@ -78,15 +78,16 @@ $(document).ready(function(){
         loadVideo(i);
     });
     
-    $('.fa-check').click(function(){
+    $('.fa-check').parent().click(function(){
         var request = $.post({
             url: 'watch/markWatched',
             dataType: 'text'
         });
         request.done(function(data){
-            message(data);
             if(data.indexOf('Reload') > 0){
-                $(this).toggleClass('check-circle-o');
+                console.log($(this));
+                $('.fa-check').parent().addClass('selected');
+                $('.fa-check').toggleClass('fa-check-circle');
             }
         })
     })

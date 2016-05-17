@@ -46,9 +46,9 @@ class Series_model extends CI_Model {
         $this->db->truncate('series_data');
         $this->db->insert_batch('series_data', $insert);
         if($this->db->affected_rows() < 1){
-            return 'There was an error updating the tables.';
+            return 'Unable to update series.';
         }else{
-            return 'Update successful.';
+            return 'Update complete. Ready to watch!';
         }
     }
  }

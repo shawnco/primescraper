@@ -3,10 +3,7 @@
  */
 
 function selectSeries(i){
-    // Update series.url to the new url
-    // Update season and episode to 1 and 1
-    // Empty series_data and fill it with the seasons and episodes
-    // Show the new series url in the input box
+    message('Collecting info on the series.');
     var newURL = $('#url-' + i).text();
     var request = $.post({
         url: 'series/update',
@@ -21,6 +18,7 @@ $(document).ready(function(){
     
     // Begin a very long winded search for the series urls. Return them as a JSON object.
     $('#search_series').click(function(){
+        message('Searching for links, please wait.');
         var data = 'url=' + $('#url_holder').val();
         var request = $.post({
             url: 'series/search',

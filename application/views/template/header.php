@@ -18,7 +18,7 @@
 </head>
 <body>
     <div id='header'>
-        <h1><?php echo $title; ?></h1>
+        <h1>Primescraper</h1>
         <ul id='nav'>
             <li><a href='watch'>Watch</a></li>
             <li><a href='series'>Series</a></li>
