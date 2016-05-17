@@ -83,3 +83,13 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+/**
+ * Constants specific to Primescraper
+ * @author Shawn Contant <shawnc366@gmail.com>
+ */
+
+defined('START_OF_SERIES') or define('START_OF_SERIES', 0);
+defined('END_OF_SERIES') or define('END_OF_SERIES', 1);
+defined('STEP_SUCCESSFUL') or define('STEP_SUCCESSFUL', 2);
+defined('STEP_UNSUCCESSFUL') or define('STEP_UNSUCCESSFUL', 3);

@@ -29,30 +29,36 @@ class Watch extends MY_Controller {
     }
     
     public function markWatched(){
-        //echo $this->Watch_model->markWatched();
-        if($this->Watch_model->stepVideo('up')){
-            echo 'Marked as watched! Reload to watch next episode.';
-        }else{
+        $result = $this->Watch_model->stepVideo('up');
+        if($result === END_OF_SERIES){
+            echo 'End of series reached.';
+        }else if($result === STEP_UNSUCCESSFUL){
             echo 'Unable to move to next episode.';
+        }else{
+            echo 'Marked as watched! Reload to watch next episode.';
         }
     }
     
     public function nextEpisode(){
-        //echo $this->Watch_model->nextEpisode();
-        if($this->Watch_model->stepVideo('up')){
-            echo 'Moving to next episode.';
-        }else{
+        $result = $this->Watch_model->stepVideo('up');
+        if($result === END_OF_SERIES){
+            echo 'Last episode reached.';
+        }else if($result === STEP_UNSUCCESSFUL){
             echo 'Unable to move to next episode.';
-        }
+        }else{
+            echo 'Moving to the next episode.';
+        }        
     }
     
     public function previousEpisode(){
-        //echo $this->Watch_model->previousEpisode();
-        if($this->Watch_model->stepVideo('down')){
-            echo 'Moving to previous episode.';
-        }else{
+        $result = $this->Watch_model->stepVideo('down');
+        if($result === START_OF_SERIES){
+            echo 'First episode reached.';
+        }else if($result === STEP_UNSUCCESSFUL){
             echo 'Unable to move to previous episode.';
-        }
+        }else{
+            echo 'Moving to the previous episode.';
+        } 
     }
 }
 ?>

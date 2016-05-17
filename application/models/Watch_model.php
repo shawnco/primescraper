@@ -33,7 +33,7 @@ class Watch_model extends CI_Model {
         foreach($sources as $source){
             foreach($hosts as $key => $host){
                 if(strpos($host->innertext, $source['domain'])){
-                    $links[] = array('domain' => $source['domain'], 'url' => 'http://primewire.ag' . $videoLinks[$key]->find('a')[0]->attr['href']);
+                    $links[] = array('domain' => $source['domain'], 'url' => 'http://www.primewire.ag' . $videoLinks[$key]->find('a')[0]->attr['href']);
 //                    $redirect = 'http://www.primewire.ag' . $videoLinks[$key]->href;
                     
                     //Depending on the site type we go to one of the parsers
@@ -55,50 +55,10 @@ class Watch_model extends CI_Model {
         
     }
     
-    public function markWatched(){
-        // Get current episode
-        $this->db->select('season, episode');
-        $result = $this->db->get('series')->row_array();
-        
-        // Get the season and episode of the very last episode.
-        $this->db->select_max('seasons');
-        $season = $this->db->get('series_data')->row()->seasons;
-        $this->db->select('episodes');
-        $this->db->where('seasons', $season);
-        $episode = $this->db->get('series_data')->row()->episodes;
-        
-        if($season == $result['season'] && $episode == $result['episode']){
-            return 'You have completed this series.';
-        }else{
-            // Find how many episodes this season is. We may need to advanced one season.
-            $this->db->select('episodes');
-            $this->db->where('seasons', $result['season']);
-            $episodesThisSeason = $this->db->get('series_data')->row_array()['episodes'];
-            
-            // Advanced to the next season
-            if($result['episode'] == $episodesThisSeason){
-                $update = array(
-                    'season' => $result['season'] + 1,
-                    'episode' => 1
-                );
-                $this->db->update('series', $update);
-            }else{
-            // Advance to the next episode
-                $update = array(
-                    'episode' => $result['episode'] + 1
-                );
-                $this->db->update('series', $update);
-            }
-            if($this->db->affected_rows() < 1){
-                return 'Unable to mark as watched.';
-            }else{
-                return 'Marked as watched! Reload to watch the next episode.';
-            }
-        }
-        
+    private function parseNosvideo($redirect){
         
     }
-    
+ 
     public function getLocation(){
         $this->db->select('season, episode');
         return json_encode($this->db->get('series')->row_array());
@@ -124,7 +84,7 @@ class Watch_model extends CI_Model {
             
             // Are we at upper bound? If so, reject, otherwise, approve.
             if($current['season'] == $maxSeason && $current['episode'] == $maxEpisode){
-                return FALSE;
+                return END_OF_SERIES;
             }else{
                 if($current['episode'] == $episodesThisSeason){
                     $data = array(
@@ -140,7 +100,7 @@ class Watch_model extends CI_Model {
         }else{
             // Check for lower bound
             if($current['season'] == 1 && $current['episode'] == 1){
-                return FALSE;
+                return START_OF_SERIES;
             }else{
                 if($current['episode'] == 1){
                     $this->db->select('episodes');
@@ -158,7 +118,11 @@ class Watch_model extends CI_Model {
             }
         }
         $this->db->update('series', $data);
-        return $this->db->affected_rows() > 0;
+        if($this->db->affected_rows() > 0){
+            return STEP_SUCCESSFUL;
+        }else{
+            return STEP_UNSUCCESSFUL;
+        }
     }
 }
 
