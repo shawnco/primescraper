@@ -15,6 +15,7 @@
         }
     ?>
     <link rel='stylesheet' type='text/css' href='<?php echo base_url(); ?>assets/js/bootstrap/css/bootstrap.min.css' />
+    <link rel='stylesheet' type='text/css' href='<?php echo base_url(); ?>assets/js/jquery-ui/jquery-ui.min.css' />
 </head>
 <body>
     <div id='header'>

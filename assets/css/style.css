@@ -64,30 +64,19 @@ h1 {
     color: #266A2E;
 }
 
+#source_list {
+    padding: 0;
+}
+
 #source_list li {
-    width: 300px;
+    width: 100%;
     border: 1px solid black;
     list-style: none;
     padding: 10px;
 }
 
-#source_list li span {
+#source_list li div {
     margin-right: 10px;
-}
-
-.list_name{
-    display: inline-block;
-    width: 100px;
-}
-
-.list_type{
-    display: inline-block;    
-    width: 100px;
-}
-
-.list_preference{
-    display: inline-block;    
-    width: 50px;
 }
 
 iframe {
@@ -126,4 +115,9 @@ iframe {
 
 #url_holder, label {
     display: inline;
+}
+
+.fa-pencil-square-o {
+    margin-left: -10px;
+    margin-right: 5px;
 }

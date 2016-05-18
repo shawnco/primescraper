@@ -7,17 +7,25 @@
  */
 ?>
 
+<div class='row'>
+    <div class='col-sm-2'>Source Domain</div>
+    <div class='col-sm-2'>Source Type</div>
+    <div class='col-sm-2'>Preference</div>
+    <div class='col-sm-2'>Actions</div>
+</div>
+
 <ul id='source_list'>
     <?php
     if(!$sources){
         echo 'There are currently no video sources.';
     }else{
         foreach($sources as $s){
-            echo "<li>";
-            echo "<span class='list_name'>" . $s['domain'] . "</span>";
-            echo "<span class='list_type'>" . $s['type'] . "</span>";
-            echo "<span class='list_preference'>" . $s['preference'] . "</span>";
-            echo "</li>";
+            echo "<li><div class='row'>";
+            echo "<div class='col-sm-2 list_name'>" . $s['domain'] . "</div>";
+            echo "<div class='col-sm-2 list_type'>" . $s['type'] . "</div>";
+            echo "<div class='col-sm-2 list_preference'>" . $s['preference'] . "</div>";
+            echo "<div class='col-sm-2 list_actions'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><i class='fa fa-trash-o' aria-hidden='true'></i></div>";
+            echo "</div></li>";
         }
     }
     ?>
