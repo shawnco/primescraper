@@ -17,6 +17,11 @@ class Watch_model extends CI_Model {
         return $this->db->get('series')->row_array()['url'];
     }
     
+    public function getName(){
+        $this->db->select('name');
+        return $this->db->get('series')->row_array()['name'];
+    }
+    
     public function getLinks(){
         // Assemble the URL of the page to scrape
         $result = $this->db->get('series')->result_array()[0];
@@ -60,8 +65,14 @@ class Watch_model extends CI_Model {
     }
  
     public function getLocation(){
-        $this->db->select('season, episode');
-        return json_encode($this->db->get('series')->row_array());
+        //return json_encode($this->db->get('series')->row_array());
+        $data = $this->db->get('series')->row_array();
+        
+        // Scrape for the name of the episode.
+        $contents = file_get_html('http://www.primewire.ag' . str_replace('watch', 'tv', $data['url']) . '/season-' . $data['season'] . '-episode-' . $data['episode']);
+        $title = $contents->find('.movie_info table tbody')[0]->find('tr')[1]->find('td')[1]->innertext;
+        $data['title'] = $title;
+        return json_encode($data);
     }
     
     public function stepVideo($direction){

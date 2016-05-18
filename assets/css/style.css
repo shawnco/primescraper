@@ -44,10 +44,14 @@ h1 {
     display: none;
     border: 1px solid black;
     margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 #results div {
-    width: 100%;
+    clear: both;
+    margin: 5px 5px 20px 5px;
 }
 
 .select_button {
@@ -95,7 +99,7 @@ iframe {
     margin-right: auto;
 }
 
-.col-sm-3 {
+.controls {
     background-color: #ffffff;
     color: #0000ff;
     margin-top: 10px;
@@ -105,7 +109,7 @@ iframe {
     font-size: 1.5em;
 }
 
-.col-sm-3:hover {
+.controls:hover {
     background-color: #0000ff;
     color: #ffffff;
 }
@@ -118,4 +122,8 @@ iframe {
 .selected {
     background-color: #0000ff;
     color: white;
+}
+
+#url_holder, label {
+    display: inline;
 }

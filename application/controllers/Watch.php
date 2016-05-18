@@ -11,7 +11,7 @@ class Watch extends MY_Controller {
         parent::__construct();
         $this->load->model('Watch_model');
         $this->data['title'] = 'Watch';
-        $this->data['url'] = $this->Watch_model->getURL();
+        $this->data['location'] = $this->Watch_model->getLocation();
         $this->addScript('watch.js');
     }
     

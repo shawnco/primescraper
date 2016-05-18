@@ -23,7 +23,14 @@
     ?>
 </ul>
 <?php
-echo form_open();
+$data = array(
+    'class' => 'form-horizontal'
+);
+echo form_open('', $data);
+?>
+    <div class='form-group'>
+        <div class='col-sm-2'>
+<?php
 $data = array(
     'id' => 'source_name',
     'name' => 'source_name',
@@ -31,10 +38,24 @@ $data = array(
     'placeholder' => 'Source Name'
 );
 echo form_input($data);
+?>
+        </div>
+        <div class='col-sm-2'>
+<?php
 $data['id'] = $data['name'] = 'source_type';
 $data['placeholder'] = 'Source Type';
 echo form_input($data);
+?>
+        </div>
+        <div class='col-sm-2'>
+<?php
 $data['id'] = $data['name'] = 'add_button';
+$data['class'] .= ' btn btn-primary';
 $data['content'] = 'Add Source';
 echo form_button($data);
+?>
+        </div>
+    </div>
+<?php
 echo form_close();
+?>

@@ -11,7 +11,7 @@ class Series extends MY_Controller {
         parent::__construct();
         $this->load->model('Series_model');
         $this->data['title'] = 'Series';
-        $this->data['series'] = $this->Series_model->getCurrentURL();
+        $this->data['series'] = $this->Series_model->getCurrentName();
         $this->load->helper('form');
         $this->addScript('series.js');
     }
@@ -28,7 +28,8 @@ class Series extends MY_Controller {
     
     public function update(){
         $url = $this->input->post('url');
-        echo $this->Series_model->update($url);
+        $name = $this->input->post('name');
+        echo $this->Series_model->update($url, $name);
     }
 }
 ?>

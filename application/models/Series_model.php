@@ -12,26 +12,30 @@ class Series_model extends CI_Model {
         $this->load->database();
     }
     
-    public function getCurrentURL(){
-        $this->db->select('url');
-        return $this->db->get('series')->row()->url;
+    public function getCurrentName(){
+        $this->db->select('name');
+        return $this->db->get('series')->row()->name;
     }
     
     public function search($url){
         $search = file_get_html('http://www.primewire.ag/index.php?search_keywords=' . $url . '&search_section=1');
         $output = array();
         foreach($search->find('.index_item') as $elem){
-            $output[] = $elem->children[0]->href;
+            $output[] = array(
+                'name' => str_replace('Watch ', '', $elem->children[0]->title),
+                'url' => $elem->children[0]->href
+            );
         }
         return json_encode($output);
     }
     
-    public function update($url){
+    public function update($url, $name){
         $seasons = file_get_html('http://www.primewire.ag' . $url);
         
         // The easy part: updating the tracker
         $data = array(
             'url' => $url,
+            'name' => $name,
             'season' => 1,
             'episode' => 1
         );

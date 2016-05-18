@@ -20,7 +20,7 @@ function getLocation(){
     });
     request.done(function(data){
         var result = $.parseJSON(data);
-        $('#location').html(result['season'] + '-' + result['episode']);
+        $('#location').html(result['name'] + ' - S' + result['season'] + 'E' + result['episode'] + ': ' + result['title']);
     });
 }
 
@@ -30,6 +30,7 @@ function getLinks(){
         dataType: 'text'
     });
     request.done(function(data){
+        console.log(data);
         links = $.parseJSON(data);
         //console.log(links);
         if(links.length < 1){
