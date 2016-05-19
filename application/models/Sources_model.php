@@ -42,6 +42,7 @@ class Sources_model extends CI_Model {
                 'message' => 'Source was not added.',
                 'domain' => '',
                 'type' => '',
+                'preference' => ''
             );
         }else{
             $output = array(
@@ -49,6 +50,7 @@ class Sources_model extends CI_Model {
                 'message' => 'Source added.',
                 'domain' => $domain,
                 'type' => $type,
+                'preference' => $maxPref
             );            
         }
         return json_encode($output);

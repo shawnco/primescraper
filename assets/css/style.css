@@ -117,7 +117,12 @@ iframe {
     display: inline;
 }
 
-.fa-pencil-square-o {
+.list_actions .fa-pencil-square-o, .list_actions .fa-check {
     margin-left: -10px;
     margin-right: 5px;
+}
+
+.list_actions .fa {
+    color: #0000ff;
+    cursor: pointer;
 }
