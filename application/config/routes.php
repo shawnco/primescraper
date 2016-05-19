@@ -56,6 +56,7 @@ $route['watch/getLinks'] = 'Watch/getLinks';
 $route['watch/markWatched'] = 'Watch/markWatched';
 $route['watch/nextEpisode'] = 'Watch/nextEpisode';
 $route['watch/previousEpisode'] = 'Watch/previousEpisode';
+$route['watch/unmarkWatched'] = 'Watch/unmarkWatched';
 $route['series'] = 'Series';
 $route['series/search'] = 'Series/search';
 $route['series/update'] = 'Series/update';

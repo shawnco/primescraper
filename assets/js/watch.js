@@ -44,6 +44,8 @@ function getLinks(){
 $(document).ready(function(){
     getLinks();
     getLocation();
+    
+    // Move to previous episode
     $('.fa-chevron-left').parent().click(function(){
         var request = $.post({
             url: 'watch/previousEpisode',
@@ -56,6 +58,7 @@ $(document).ready(function(){
         })
     });
     
+    // Move to next episode
     $('.fa-chevron-right').parent().click(function(){
         var request = $.post({
             url: 'watch/nextEpisode',
@@ -68,6 +71,7 @@ $(document).ready(function(){
         });
     });
     
+    // Try a different source
     $('.fa-refresh').parent().click(function(){
         var len = links.length;
         if(i < len - 1){
@@ -79,17 +83,34 @@ $(document).ready(function(){
         loadVideo(i);
     });
     
-    $('.fa-check').parent().click(function(){
-        var request = $.post({
-            url: 'watch/markWatched',
-            dataType: 'text'
-        });
-        request.done(function(data){
-            if(data.indexOf('Reload') > 0){
-                console.log($(this));
-                $('.fa-check').parent().addClass('selected');
-                $('.fa-check').toggleClass('fa-check-circle');
-            }
-        })
-    })
+    // Mark or unmark an episode as watched
+    $('#watched').click(function(){
+        console.log($(this).children()[0]);
+        if($($(this).children()[0]).hasClass('fa-check')){
+            var request = $.post({
+                url: 'watch/markWatched',
+                dataType: 'text'
+            });
+            request.done(function(data){
+                if(data.indexOf('Reload') > 0){
+                    $('.fa-check').parent().addClass('selected');
+                    $('.fa-check').switchClass('fa-check' , 'fa-check-circle');
+                }
+                message(data);
+            });
+        }else{    
+            console.log('down');
+            var request = $.post({
+                url: 'watch/unmarkWatched',
+                dataType: 'text'
+            });
+            request.done(function(data){
+                if(data.indexOf('unmarked') > 0){
+                    $('.fa-check-circle').parent().removeClass('selected');
+                    $('.fa-check-circle').switchClass('fa-check-circle', 'fa-check');
+                }
+                message(data);
+            });
+        }
+    });
 });

@@ -39,6 +39,17 @@ class Watch extends MY_Controller {
         }
     }
     
+    public function unmarkWatched(){
+        $result = $this->Watch_model->stepVideo('down');
+        if($result == START_OF_SERIES){
+            echo 'First episode reached.';
+        }else if($result == STEP_UNSUCCESSFUL){
+            echo 'Unable to mark as unwatched.';
+        }else{
+            echo 'Episode unmarked as watched!';
+        }
+    }
+    
     public function nextEpisode(){
         $result = $this->Watch_model->stepVideo('up');
         if($result === END_OF_SERIES){
