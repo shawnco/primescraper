@@ -1,4 +1,3 @@
-CREATE DATABASE primescraper;
 CREATE TABLE primescraper.series
 (
 season int,
