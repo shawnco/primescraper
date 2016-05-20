@@ -30,5 +30,11 @@ class Sources extends MY_Controller {
         $data = $this->input->post('data');
         echo $this->Sources_model->resort($data);
     }
+    
+    public function deleteSource(){
+        $source = $this->input->post('source');
+        $preference = $this->input->post('preference');
+        echo $this->Sources_model->deleteSource($source);
+    }
 }
 ?>

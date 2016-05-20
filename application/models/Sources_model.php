@@ -67,5 +67,29 @@ class Sources_model extends CI_Model {
         $this->db->order_by('preference');
         return json_encode($this->db->get('sources')->result_array());
     }
+    
+    public function deleteSource($source, $preference){
+        $this->db->where('domain', $source);
+        $this->db->delete('sources');
+        
+        // Promote all of the lower ranking preferences
+        $this->db->select('domain, preference');
+        $this->db->where('preference >', $preference);
+        $promotable = $this->db->get('sources')->result_array();
+        foreach($promotable as $row){
+            $data = array(
+                'preference' => $row['preference'] - 1
+            );
+            $this->db->where('domain', $row['domain']);
+            $this->db->update('sources', $data);
+        }
+        
+        // Return the new preferences
+        $this->db->select('preference');
+        $this->db->order_by('preference');
+        $result = $this->db->get('sources')->result_array();
+        return json_encode($result);
+        
+    }
 }
 ?>

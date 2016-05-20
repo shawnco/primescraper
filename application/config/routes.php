@@ -62,6 +62,7 @@ $route['series/search'] = 'Series/search';
 $route['series/update'] = 'Series/update';
 $route['sources'] = 'Sources';
 $route['sources/addSource'] = 'Sources/addSource';
+$route['sources/deleteSource'] = 'Sources/deleteSource';
 $route['sources/resort'] = 'Sources/resort';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
