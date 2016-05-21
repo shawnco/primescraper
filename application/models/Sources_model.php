@@ -91,5 +91,17 @@ class Sources_model extends CI_Model {
         return json_encode($result);
         
     }
+    
+    public function updateSource($source, $type, $preference){
+        $data = array(
+            'domain' => $source,
+            'type' => $type
+        );
+        $this->db->where('preference', $preference);
+        $this->db->update('sources', $data);
+        $this->db->select('domain, type');
+        $this->db->where('preference', $preference);
+        return json_encode($this->db->get('sources')->result_array());
+    }
 }
 ?>

@@ -67,6 +67,7 @@ $(document).ready(function(){
        var domainName = row.find('.list_name').text();
        row.find('.list_name').text('');
        row.find('.list_name').append("<input class='border form-control' id='form_name' name='form_name' value='" + domainName + "' />");
+       console.log(row.find('.list_name').find('form_name'));
        
        // Replace the type name with an input
        var sourceType = row.find('.list_type').text();
@@ -79,7 +80,24 @@ $(document).ready(function(){
    
    // Complete the editing process
    $('.fa-check').on('click', function(){
-       $(this).switchClass('fa-check', 'fa-pencil-square-o');
+       // Get the new domain and sources
+       var source = $(this).parent().parent().find('#form_name').val();
+       var type = $(this).parent().parent().find('#form_type').val();
+       var preference = $(this).parent().parent().find('.list_preference').text();
+       var request = $.post({
+           url: 'sources/updateSource',
+           data: 'source=' + source + '&type=' + type + '&preference=' + preference,
+           dataType: 'text'
+       });
+       request.done(function(data){
+           var result = $.parseJSON(data);
+           console.log(result);
+           var row = $($('.list_preference')[result.preference]).parent().parent();
+           row.find('.list_name').text(result.domain);
+           row.find('.list_type').text(result.type);
+           $(this).switchClass('fa-check', 'fa-pencil-square-o');
+           message('Source successfully updated.');
+       });
    });
    
    // Delete sources
@@ -87,23 +105,21 @@ $(document).ready(function(){
        if(confirm('Are you sure you want to delete this source?')){
            var source = $(this).parent().parent().find('.list_name').text();
            var preference = $(this).parent().parent().find('.list_preference').text();
-           console.log(source);console.log(preference);
+            // Remove the list element
+           $(this).parent().parent().parent().remove();
            var request = $.post({
                url: 'sources/deleteSource',
                data: 'source=' + source + '&preference=' + preference,
                dataType: 'text'
            });
            request.done(function(data){
-               // Remove the list element
-               $(this).parent().parent().remove();
                
                // Re-display the preferences.
                var preferences = $.parseJSON(data);
                var rows = $('.list_preference');
                for(p in preferences){
-                   $(rows[p]).text(preferences[p]);
+                   $(rows[p]).text(preferences[p].preference);
                }
-               
                message('Source deleted.');
            });
        }
