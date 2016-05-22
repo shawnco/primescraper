@@ -21,8 +21,8 @@
     }else{
         foreach($sources as $s){
             echo "<li><div class='row'>";
-            echo "<div class='col-sm-2 list_name'>" . $s['domain'] . "</div>";
-            echo "<div class='col-sm-2 list_type'>" . $s['type'] . "</div>";
+            echo "<div class='col-sm-2 list_name'><span class='data'>" . $s['domain'] . "</span><input class='border form-control form_name' value='" . $s['domain']  . "' /></div>";
+            echo "<div class='col-sm-2 list_type'><span class='data'>" . $s['type'] . "</span><input class='border form-control form_type' value='" . $s['type'] . "' /></div>";
             echo "<div class='col-sm-2 list_preference'>" . $s['preference'] . "</div>";
             echo "<div class='col-sm-2 list_actions'><i class='fa fa-pencil-square-o' aria-hidden='true'></i><i class='fa fa-trash-o' aria-hidden='true'></i></div>";
             echo "</div></li>";

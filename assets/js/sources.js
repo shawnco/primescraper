@@ -60,48 +60,52 @@ $(document).ready(function(){
    }); 
    
    // Handle editing a source.
-   $('.fa-pencil-square-o').on('click', function(){
+   $('.list_actions').on('click', '.fa-pencil-square-o', function(){
        var row = $(this).parent().parent();
        
        // Replace the domain name with an input.
-       var domainName = row.find('.list_name').text();
-       row.find('.list_name').text('');
-       row.find('.list_name').append("<input class='border form-control' id='form_name' name='form_name' value='" + domainName + "' />");
-       console.log(row.find('.list_name').find('form_name'));
+       row.find('.list_name span').hide();
+       row.find('.list_name input').show();
        
        // Replace the type name with an input
-       var sourceType = row.find('.list_type').text();
-       row.find('.list_type').text('');
-       row.find('.list_type').append("<input class='border form-control' id='form_type' name='form_type' value='" + sourceType + "' />");
+       row.find('.list_type span').hide();
+       row.find('.list_type input').show();
        
        // Finally, replace this icon with a check.
        $(this).switchClass('fa-pencil-square-o', 'fa-check');
    });
    
    // Complete the editing process
-   $('.fa-check').on('click', function(){
+   $('.list_actions').on('click', '.fa-check', function(){
        // Get the new domain and sources
-       var source = $(this).parent().parent().find('#form_name').val();
-       var type = $(this).parent().parent().find('#form_type').val();
-       var preference = $(this).parent().parent().find('.list_preference').text();
+       var row = $(this).parent().parent();
+       var source = row.find('.form_name').val();
+       var type = row.find('.form_type').val();
+       var preference = row.find('.list_preference').text();
        var request = $.post({
            url: 'sources/updateSource',
            data: 'source=' + source + '&type=' + type + '&preference=' + preference,
            dataType: 'text'
        });
        request.done(function(data){
-           var result = $.parseJSON(data);
-           console.log(result);
-           var row = $($('.list_preference')[result.preference]).parent().parent();
-           row.find('.list_name').text(result.domain);
-           row.find('.list_type').text(result.type);
-           $(this).switchClass('fa-check', 'fa-pencil-square-o');
+           var result = $.parseJSON(data)[0];
+           var row = $($('.list_preference')[result.preference - 1]).parent().parent();
+           row.find('.list_name input').val(result.domain);
+           row.find('.list_name input').hide();
+           row.find('.list_type input').val(result.type);
+           row.find('.list_type input').hide();
+           row.find('.list_name span').text(result.domain).show();
+           row.find('.list_name span').show();
+           row.find('.list_type span').text(result.type).show();
+           row.find('.list_type span').show();
+           //$(this).switchClass('fa-check', 'fa-pencil-square-o');
+           $($('.list_preference')[result.preference - 1]).parent().find('.list_actions .fa-check').switchClass('fa-check', 'fa-pencil-square-o');
            message('Source successfully updated.');
        });
    });
    
    // Delete sources
-   $('.fa-trash-o').on('click', function(){
+   $('.list_actions').on('click', '.fa-trash-o', function(){
        if(confirm('Are you sure you want to delete this source?')){
            var source = $(this).parent().parent().find('.list_name').text();
            var preference = $(this).parent().parent().find('.list_preference').text();
@@ -124,4 +128,8 @@ $(document).ready(function(){
            });
        }
    });
+   $("input, select, textarea").bind('mousedown.ui-disableSelection selectstart.ui-disableSelection', function(e){
+       e.stopImmediatePropagation();
+   });
+   
 });

@@ -126,3 +126,8 @@ iframe {
     color: #0000ff;
     cursor: pointer;
 }
+
+.list_name input, .list_type input {
+    display: none;
+    z-index: 1;
+}

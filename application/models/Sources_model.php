@@ -99,7 +99,7 @@ class Sources_model extends CI_Model {
         );
         $this->db->where('preference', $preference);
         $this->db->update('sources', $data);
-        $this->db->select('domain, type');
+        $this->db->select('domain, type, preference');
         $this->db->where('preference', $preference);
         return json_encode($this->db->get('sources')->result_array());
     }
