@@ -39,31 +39,12 @@ class Watch_model extends CI_Model {
             foreach($hosts as $key => $host){
                 if(strpos($host->innertext, $source['domain'])){
                     $links[] = array('domain' => $source['domain'], 'url' => 'http://www.primewire.ag' . $videoLinks[$key]->find('a')[0]->attr['href']);
-//                    $redirect = 'http://www.primewire.ag' . $videoLinks[$key]->href;
-                    
-                    //Depending on the site type we go to one of the parsers
-//                    if($source['type'] === 'gorillavid'){
-//                        $links[]['url'] = $source['domain'] . $this->parseGorillavid($redirect);
-//                    }else{
-//                        $links[]['url'] = $this->parseNosvideo($redirect);
-//                    }
                 }
             }
         }
         return json_encode($links);
     }   
-    
-    private function parseGorillavid($redirect){
-        $contents = file_get_html($redirect);
-        $id = $contents->find('[name=id]')->attr['value'];
-        return $id;
-        
-    }
-    
-    private function parseNosvideo($redirect){
-        
-    }
- 
+
     public function getLocation(){
         //return json_encode($this->db->get('series')->row_array());
         $data = $this->db->get('series')->row_array();
